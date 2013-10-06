@@ -28,20 +28,20 @@ type Comic struct {
 	Transcript string "transcript"
 }
 
-// GetComic returns the information about the xkcd comic number `num'.
-func GetComic(num int) (Comic, error) {
+// Get returns the information about the xkcd comic number `num'.
+func Get(num int) (Comic, error) {
 	url := fmt.Sprintf(templateUrl, num)
-	return GetComicByUrl(url)
+	return GetByUrl(url)
 }
 
-// GetCurrentComic returns information for the newest xkcd comic.
-func GetCurrentComic() (Comic, error) {
-	return GetComicByUrl(defaultUrl)
+// GetCurrent returns information for the newest xkcd comic.
+func GetCurrent() (Comic, error) {
+	return GetByUrl(defaultUrl)
 }
 
-// GetComicByUrl returns infomation downloaded from `url'. Most people
-// will use `GetComic' and `GetCurrentComic'.
-func GetComicByUrl(url string) (Comic, error) {
+// GetByUrl returns infomation downloaded from `url'. Most people
+// will use `Get' and `GetCurrent'.
+func GetByUrl(url string) (Comic, error) {
 	var c Comic
 
 	resp, err := http.Get(url)
