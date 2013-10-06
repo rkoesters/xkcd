@@ -1,6 +1,50 @@
-`xkcd` is a go library that allows access to xkcd comics.
+xkcd
+====
 
-The library comes with a couple example utilities:
+`xkcd` is a go library for accessing xkcd comics.
 
-- `xkcd-info` - print information on xkcd comic.
-- `xkcd-get` - download xkcd comic and print to stdout.
+Example
+-------
+
+	package main
+
+	import (
+		"fmt"
+		"github.com/rkoesters/xkcd"
+		"log"
+	)
+
+	func main() {
+		info, err := xkcd.GetComicInfo(100)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println("Number: ", info.Num)
+		fmt.Println("Image: ", info.Img)
+		fmt.Println("Alt Text: ", info.Alt)
+	}
+
+
+Utilities
+=========
+
+This comes with a couple example utilities.
+
+xkcd-info
+---------
+
+`xkcd-info` prints information about a xkcd comic.
+
+### Usage
+
+	xkcd-info [number]
+
+xkcd-get
+--------
+
+`xkcd-get` downloads a xkcd comic and prints it to stdout.
+
+### Usage
+
+	xkcd-get [number] [> filename]
