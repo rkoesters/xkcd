@@ -37,18 +37,18 @@ func main() {
 }
 
 func printInfo(info xkcd.ComicInfo) {
-	fmt.Printf("Num:	%v\n", info.Num)
-	fmt.Printf("Title:	%v\n", info.Title)
-	fmt.Printf("Safe-Title:	%v\n", info.SafeTitle)
+	fmt.Printf("Num: %v\n", info.Num)
+	fmt.Printf("Title: %v\n", info.Title)
+	fmt.Printf("Safe-Title: %v\n", info.SafeTitle)
 
-	fmt.Printf("Img:	%v\n", info.Img)
-	fmt.Printf("Alt:	%v\n", info.Alt)
+	fmt.Printf("Img: %v\n", info.Img)
+	fmt.Printf("Alt: %v\n", info.Alt)
 
-	fmt.Printf("Year:	%v\n", info.Year)
-	fmt.Printf("Month:	%v\n", info.Month)
-	fmt.Printf("Day:	%v\n", info.Day)
+	fmt.Printf("Year: %v\n", info.Year)
+	fmt.Printf("Month: %v\n", info.Month)
+	fmt.Printf("Day: %v\n", info.Day)
 
-	fmt.Printf("News:	%v\n", info.News)
-	fmt.Printf("Link:	%v\n", info.Link)
-	fmt.Printf("Transcript:	%v\n", info.Transcript)
+	fmt.Printf("News: %v\n", info.News)
+	fmt.Printf("Link: %v\n", info.Link)
+	fmt.Printf("Transcript: %v\n", info.Transcript)
 }
