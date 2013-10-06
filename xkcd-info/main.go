@@ -9,13 +9,13 @@ import (
 )
 
 func main() {
-	var info xkcd.ComicInfo
+	var comic xkcd.Comic
 	var err error
 
 	flag.Parse()
 
 	if flag.NArg() == 0 {
-		info, err = xkcd.GetCurrentComicInfo()
+		comic, err = xkcd.GetCurrentComic()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -25,7 +25,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		info, err = xkcd.GetComicInfo(num)
+		comic, err = xkcd.GetComic(num)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -33,22 +33,22 @@ func main() {
 		log.Fatal("invalid args")
 	}
 
-	printInfo(info)
+	printInfo(comic)
 }
 
-func printInfo(info xkcd.ComicInfo) {
-	fmt.Printf("Num: %v\n", info.Num)
-	fmt.Printf("Title: %v\n", info.Title)
-	fmt.Printf("Safe-Title: %v\n", info.SafeTitle)
+func printInfo(comic xkcd.Comic) {
+	fmt.Printf("Num: %v\n", comic.Num)
+	fmt.Printf("Title: %v\n", comic.Title)
+	fmt.Printf("Safe-Title: %v\n", comic.SafeTitle)
 
-	fmt.Printf("Img: %v\n", info.Img)
-	fmt.Printf("Alt: %v\n", info.Alt)
+	fmt.Printf("Img: %v\n", comic.Img)
+	fmt.Printf("Alt: %v\n", comic.Alt)
 
-	fmt.Printf("Year: %v\n", info.Year)
-	fmt.Printf("Month: %v\n", info.Month)
-	fmt.Printf("Day: %v\n", info.Day)
+	fmt.Printf("Year: %v\n", comic.Year)
+	fmt.Printf("Month: %v\n", comic.Month)
+	fmt.Printf("Day: %v\n", comic.Day)
 
-	fmt.Printf("News: %v\n", info.News)
-	fmt.Printf("Link: %v\n", info.Link)
-	fmt.Printf("Transcript: %v\n", info.Transcript)
+	fmt.Printf("News: %v\n", comic.News)
+	fmt.Printf("Link: %v\n", comic.Link)
+	fmt.Printf("Transcript: %v\n", comic.Transcript)
 }
