@@ -28,15 +28,19 @@ type ComicInfo struct {
 	Transcript string "transcript"
 }
 
+// GetComicInfo returns the information about the xkcd comic number `num'.
 func GetComicInfo(num int) (ComicInfo, error) {
 	url := fmt.Sprintf(templateUrl, num)
 	return GetComicInfoByUrl(url)
 }
 
+// GetCurrentComicInfo returns information for the newest xkcd comic.
 func GetCurrentComicInfo() (ComicInfo, error) {
 	return GetComicInfoByUrl(defaultUrl)
 }
 
+// GetComicInfoByUrl returns infomation downloaded from `url'. Most people
+// will use `GetComicInfo' and `GetCurrentComicInfo'.
 func GetComicInfoByUrl(url string) (ComicInfo, error) {
 	var info ComicInfo
 
