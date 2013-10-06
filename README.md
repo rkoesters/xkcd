@@ -15,14 +15,14 @@ Example
 	)
 
 	func main() {
-		info, err := xkcd.GetComicInfo(100)
+		comic, err := xkcd.GetComic(100)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Println("Number: ", info.Num)
-		fmt.Println("Image: ", info.Img)
-		fmt.Println("Alt Text: ", info.Alt)
+		fmt.Println("Number: ", comic.Num)
+		fmt.Println("Image: ", comic.Img)
+		fmt.Println("Alt Text: ", comic.Alt)
 	}
 
 
