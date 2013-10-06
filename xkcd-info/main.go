@@ -9,20 +9,28 @@ import (
 )
 
 func main() {
+	var info xkcd.ComicInfo
+	var err error
+
 	flag.Parse()
 
-	if flag.NArg() != 1 {
+	if flag.NArg() == 0 {
+		info, err = xkcd.GetCurrentComicInfo()
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else if flag.NArg() == 1 {
+		num, err := strconv.Atoi(flag.Arg(0))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		info, err = xkcd.GetComicInfo(num)
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
 		log.Fatal("invalid args")
-	}
-
-	num, err := strconv.Atoi(flag.Arg(0))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	info, err := xkcd.GetComicInfo(num)
-	if err != nil {
-		log.Fatal(err)
 	}
 
 	printInfo(info)
