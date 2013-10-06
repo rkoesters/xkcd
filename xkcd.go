@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	defaultUrl  = "http://xkcd.com/info.0.json"
+	currentUrl  = "http://xkcd.com/info.0.json"
 	templateUrl = "http://xkcd.com/%v/info.0.json"
 )
 
@@ -36,7 +36,7 @@ func Get(num int) (Comic, error) {
 
 // GetCurrent returns information for the newest xkcd comic.
 func GetCurrent() (Comic, error) {
-	return GetByUrl(defaultUrl)
+	return GetByUrl(currentUrl)
 }
 
 // GetByUrl returns infomation downloaded from `url'. Most people
