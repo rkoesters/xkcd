@@ -11,7 +11,7 @@ const (
 	templateUrl = "http://xkcd.com/%v/info.0.json"
 )
 
-type ComicInfo struct {
+type Comic struct {
 	Num       int    "num"
 	Title     string "title"
 	SafeTitle string "safe_title"
@@ -28,31 +28,31 @@ type ComicInfo struct {
 	Transcript string "transcript"
 }
 
-// GetComicInfo returns the information about the xkcd comic number `num'.
-func GetComicInfo(num int) (ComicInfo, error) {
+// GetComic returns the information about the xkcd comic number `num'.
+func GetComic(num int) (Comic, error) {
 	url := fmt.Sprintf(templateUrl, num)
-	return GetComicInfoByUrl(url)
+	return GetComicByUrl(url)
 }
 
-// GetCurrentComicInfo returns information for the newest xkcd comic.
-func GetCurrentComicInfo() (ComicInfo, error) {
-	return GetComicInfoByUrl(defaultUrl)
+// GetCurrentComic returns information for the newest xkcd comic.
+func GetCurrentComic() (Comic, error) {
+	return GetComicByUrl(defaultUrl)
 }
 
-// GetComicInfoByUrl returns infomation downloaded from `url'. Most people
-// will use `GetComicInfo' and `GetCurrentComicInfo'.
-func GetComicInfoByUrl(url string) (ComicInfo, error) {
-	var info ComicInfo
+// GetComicByUrl returns infomation downloaded from `url'. Most people
+// will use `GetComic' and `GetCurrentComic'.
+func GetComicByUrl(url string) (Comic, error) {
+	var c Comic
 
 	resp, err := http.Get(url)
 	if err != nil {
-		return info, err
+		return c, err
 	}
 	defer resp.Body.Close()
 
 	// TODO: handle status codes.
 
 	dec := json.NewDecoder(resp.Body)
-	err = dec.Decode(&info)
-	return info, err
+	err = dec.Decode(&c)
+	return c, err
 }
