@@ -10,12 +10,12 @@ import (
 )
 
 func main() {
-	var info xkcd.ComicInfo
+	var comic xkcd.Comic
 	var err error
 
 	switch len(os.Args) {
 	case 1:
-		info, err = xkcd.GetCurrentComicInfo()
+		comic, err = xkcd.GetCurrentComic()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -25,7 +25,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		info, err = xkcd.GetComicInfo(num)
+		comic, err = xkcd.GetComic(num)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -33,7 +33,7 @@ func main() {
 		log.Fatal("args")
 	}
 
-	resp, err := http.Get(info.Img)
+	resp, err := http.Get(comic.Img)
 	if err != nil {
 		log.Fatal(err)
 	}
