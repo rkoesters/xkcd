@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	var comic xkcd.Comic
+	var comic *xkcd.Comic
 	var err error
 
 	switch len(os.Args) {

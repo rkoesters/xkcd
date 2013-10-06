@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	var comic xkcd.Comic
+	var comic *xkcd.Comic
 	var err error
 
 	flag.Parse()
@@ -36,7 +36,7 @@ func main() {
 	printInfo(comic)
 }
 
-func printInfo(comic xkcd.Comic) {
+func printInfo(comic *xkcd.Comic) {
 	fmt.Printf("Num: %v\n", comic.Num)
 	fmt.Printf("Title: %v\n", comic.Title)
 	fmt.Printf("Safe-Title: %v\n", comic.SafeTitle)
