@@ -15,7 +15,7 @@ Example
 	)
 
 	func main() {
-		comic, err := xkcd.GetComic(100)
+		comic, err := xkcd.Get(100)
 		if err != nil {
 			log.Fatal(err)
 		}
