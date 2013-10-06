@@ -28,9 +28,9 @@ type Comic struct {
 	Transcript string "transcript"
 }
 
-// Get returns the information about the xkcd comic number `num'.
-func Get(num int) (Comic, error) {
-	url := fmt.Sprintf(templateUrl, num)
+// Get returns the information about the xkcd comic number `n'.
+func Get(n int) (Comic, error) {
+	url := fmt.Sprintf(templateUrl, n)
 	return GetByUrl(url)
 }
 
