@@ -15,7 +15,7 @@ func main() {
 
 	switch len(os.Args) {
 	case 1:
-		comic, err = xkcd.GetCurrentComic()
+		comic, err = xkcd.GetCurrent()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -25,7 +25,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		comic, err = xkcd.GetComic(num)
+		comic, err = xkcd.Get(num)
 		if err != nil {
 			log.Fatal(err)
 		}
