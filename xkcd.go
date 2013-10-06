@@ -14,7 +14,7 @@ const (
 type Comic struct {
 	Num       int
 	Title     string
-	SafeTitle string
+	SafeTitle string `json:"safe_title"`
 
 	Img string
 	Alt string
