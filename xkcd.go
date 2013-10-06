@@ -42,17 +42,17 @@ func GetCurrent() (*Comic, error) {
 // GetByUrl returns infomation downloaded from `url'. Most people
 // will use `Get' and `GetCurrent'.
 func GetByUrl(url string) (*Comic, error) {
-	c := new(Comic)
-
 	resp, err := http.Get(url)
 	if err != nil {
-		return c, err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	// TODO: handle status codes.
 
 	dec := json.NewDecoder(resp.Body)
+
+	c := new(Comic)
 	err = dec.Decode(c)
 	return c, err
 }
