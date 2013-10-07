@@ -5,6 +5,7 @@ package xkcd
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -50,7 +51,9 @@ func getByUrl(url string) (*Comic, error) {
 	}
 	defer resp.Body.Close()
 
-	// TODO: handle status codes.
+	if resp.StatusCode >= 400 {
+		return nil, errors.New(resp.Status)
+	}
 
 	dec := json.NewDecoder(resp.Body)
 
