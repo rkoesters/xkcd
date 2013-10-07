@@ -15,7 +15,6 @@ func ExampleGet() {
 	fmt.Printf("Number: %v\n", comic.Num)
 	fmt.Printf("Image: %v\n", comic.Img)
 	fmt.Printf("Alt Text: %v\n", comic.Alt)
-
 	// Output:
 	// Number: 140
 	// Image: http://imgs.xkcd.com/comics/delicious.png
