@@ -2,6 +2,7 @@ xkcd
 ====
 
 `xkcd` is a go library for accessing xkcd comics.
+[Click here for documentation.](http://godoc.org/github.com/rkoesters/xkcd)
 
 Example
 -------
