@@ -1,3 +1,9 @@
+/*
+xkcd-json prints information about a xkcd comic in json format.
+
+Usage:
+	xkcd-json [-n number]
+*/
 package main
 
 import (

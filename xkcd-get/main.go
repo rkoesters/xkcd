@@ -1,3 +1,9 @@
+/*
+xkcd-get downloads a xkcd comic and prints it to stdout.
+
+Usage:
+	xkcd-get [-n number] [> filename]
+*/
 package main
 
 import (
