@@ -20,6 +20,11 @@ var number = flag.Int("n", 0, "Comic number.")
 func main() {
 	flag.Parse()
 
+	if flag.NArg() != 0 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	var comic *xkcd.Comic
 	var err error
 
