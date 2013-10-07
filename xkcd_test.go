@@ -38,9 +38,18 @@ func TestGet(t *testing.T) {
 }
 
 func TestGetCurrent(t *testing.T) {
-	_, err := xkcd.GetCurrent()
+	comic1, err := xkcd.GetCurrent()
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	comic2, err := xkcd.Get(comic1.Num)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if *comic1 != *comic2 {
+		t.Fail()
 	}
 }
 
