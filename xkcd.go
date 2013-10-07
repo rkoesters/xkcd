@@ -31,17 +31,16 @@ type Comic struct {
 // Get returns the information about the xkcd comic number `n'.
 func Get(n int) (*Comic, error) {
 	url := fmt.Sprintf(templateUrl, n)
-	return GetByUrl(url)
+	return getByUrl(url)
 }
 
 // GetCurrent returns information for the newest xkcd comic.
 func GetCurrent() (*Comic, error) {
-	return GetByUrl(currentUrl)
+	return getByUrl(currentUrl)
 }
 
-// GetByUrl returns infomation downloaded from `url'. Most people
-// will use `Get' and `GetCurrent'.
-func GetByUrl(url string) (*Comic, error) {
+// getByUrl returns infomation downloaded from `url'.
+func getByUrl(url string) (*Comic, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
