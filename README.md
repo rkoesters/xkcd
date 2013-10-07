@@ -38,7 +38,7 @@ xkcd-info
 
 ### Usage
 
-	xkcd-info [number]
+	xkcd-info [-n number]
 
 xkcd-get
 --------
@@ -47,4 +47,4 @@ xkcd-get
 
 ### Usage
 
-	xkcd-get [number] [> filename]
+	xkcd-get [-n number] [> filename]
