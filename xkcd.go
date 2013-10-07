@@ -12,20 +12,20 @@ const (
 )
 
 type Comic struct {
-	Num       int
-	Title     string
+	Num       int    `json:"num"`
+	Title     string `json:"title"`
 	SafeTitle string `json:"safe_title"`
 
-	Img string
-	Alt string
+	Img string `json:"img"`
+	Alt string `json:"alt"`
 
-	Year  string
-	Month string
-	Day   string
+	Year  string `json:"year"`
+	Month string `json:"month"`
+	Day   string `json:"day"`
 
-	News       string
-	Link       string
-	Transcript string
+	News       string `json:"news"`
+	Link       string `json:"link"`
+	Transcript string `json:"transcript"`
 }
 
 // Get returns the information about the xkcd comic number `n'.
