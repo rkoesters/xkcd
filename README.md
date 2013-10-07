@@ -48,3 +48,12 @@ xkcd-get
 ### Usage
 
 	xkcd-get [-n number] [> filename]
+
+xkcd-json
+---------
+
+`xkcd-json` prints information about xkcd comic in json format.
+
+### Usage
+
+	xkcd-json [-n number]
