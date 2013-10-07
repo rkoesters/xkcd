@@ -1,36 +1,30 @@
 package main
 
 import (
+	"flag"
 	"github.com/rkoesters/xkcd"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 )
 
+var number = flag.Int("n", 0, "Comic number.")
+
 func main() {
+	flag.Parse()
+
 	var comic *xkcd.Comic
 	var err error
 
-	switch len(os.Args) {
-	case 1:
+	if *number == 0 {
 		comic, err = xkcd.GetCurrent()
-		if err != nil {
-			log.Fatal(err)
-		}
-	case 2:
-		num, err := strconv.Atoi(os.Args[1])
-		if err != nil {
-			log.Fatal(err)
-		}
+	} else {
+		comic, err = xkcd.Get(*number)
+	}
 
-		comic, err = xkcd.Get(num)
-		if err != nil {
-			log.Fatal(err)
-		}
-	default:
-		log.Fatal("args")
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	resp, err := http.Get(comic.Img)

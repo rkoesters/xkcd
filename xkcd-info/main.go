@@ -5,32 +5,24 @@ import (
 	"fmt"
 	"github.com/rkoesters/xkcd"
 	"log"
-	"strconv"
 )
 
+var number = flag.Int("n", 0, "Comic number.")
+
 func main() {
+	flag.Parse()
+
 	var comic *xkcd.Comic
 	var err error
 
-	flag.Parse()
-
-	if flag.NArg() == 0 {
+	if *number == 0 {
 		comic, err = xkcd.GetCurrent()
-		if err != nil {
-			log.Fatal(err)
-		}
-	} else if flag.NArg() == 1 {
-		num, err := strconv.Atoi(flag.Arg(0))
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		comic, err = xkcd.Get(num)
-		if err != nil {
-			log.Fatal(err)
-		}
 	} else {
-		log.Fatal("invalid args")
+		comic, err = xkcd.Get(*number)
+	}
+
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	printInfo(comic)
