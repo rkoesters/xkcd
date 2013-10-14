@@ -15,6 +15,7 @@ const (
 	templateURL = "http://xkcd.com/%v/info.0.json"
 )
 
+// Comic is a struct that contains infomation about a xkcd comic.
 type Comic struct {
 	Num       int    `json:"num"`
 	Title     string `json:"title"`
