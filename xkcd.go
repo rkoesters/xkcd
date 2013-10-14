@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	currentUrl  = "http://xkcd.com/info.0.json"
-	templateUrl = "http://xkcd.com/%v/info.0.json"
+	currentURL  = "http://xkcd.com/info.0.json"
+	templateURL = "http://xkcd.com/%v/info.0.json"
 )
 
 type Comic struct {
@@ -34,17 +34,17 @@ type Comic struct {
 
 // Get returns the information about the xkcd comic number `n'.
 func Get(n int) (*Comic, error) {
-	url := fmt.Sprintf(templateUrl, n)
-	return getByUrl(url)
+	url := fmt.Sprintf(templateURL, n)
+	return getByURL(url)
 }
 
 // GetCurrent returns information for the newest xkcd comic.
 func GetCurrent() (*Comic, error) {
-	return getByUrl(currentUrl)
+	return getByURL(currentURL)
 }
 
-// getByUrl returns infomation downloaded from `url'.
-func getByUrl(url string) (*Comic, error) {
+// getByURL returns infomation downloaded from `url'.
+func getByURL(url string) (*Comic, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
