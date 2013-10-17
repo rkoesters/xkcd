@@ -62,3 +62,12 @@ func getByURL(url string) (*Comic, error) {
 	err = dec.Decode(c)
 	return c, err
 }
+
+// String returns the comic as a string encoded in json format.
+func (c *Comic) String() string {
+	b, err := json.Marshal(*c)
+	if err != nil {
+		return ""
+	}
+	return string(b)
+}
