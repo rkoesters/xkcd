@@ -7,8 +7,8 @@ Usage:
 package main
 
 import (
+	"encoding/json"
 	"flag"
-	"fmt"
 	"github.com/rkoesters/xkcd"
 	"log"
 	"os"
@@ -37,5 +37,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(comic)
+	e := json.NewEncoder(os.Stdout)
+	err = e.Encode(comic)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
