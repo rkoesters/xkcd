@@ -17,17 +17,14 @@ const (
 
 // Comic is a struct that contains infomation about a xkcd comic.
 type Comic struct {
-	Num       int    `json:"num"`
-	Title     string `json:"title"`
-	SafeTitle string `json:"safe_title"`
-
-	Img string `json:"img"`
-	Alt string `json:"alt"`
-
-	Year  string `json:"year"`
-	Month string `json:"month"`
-	Day   string `json:"day"`
-
+	Num        int    `json:"num"`
+	Title      string `json:"title"`
+	SafeTitle  string `json:"safe_title"`
+	Img        string `json:"img"`
+	Alt        string `json:"alt"`
+	Year       string `json:"year"`
+	Month      string `json:"month"`
+	Day        string `json:"day"`
 	News       string `json:"news"`
 	Link       string `json:"link"`
 	Transcript string `json:"transcript"`
