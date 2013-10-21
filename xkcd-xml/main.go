@@ -1,9 +1,7 @@
-/*
-xkcd-xml prints information about a xkcd comic in xml format.
-
-Usage:
-	xkcd-xml [-n number]
-*/
+// xkcd-xml prints information about a xkcd comic in xml format.
+//
+// Usage:
+//	xkcd-xml [-n number]
 package main
 
 import (

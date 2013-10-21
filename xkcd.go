@@ -1,6 +1,4 @@
-/*
-Package xkcd allows access to metadata for xkcd comics.
-*/
+// Package xkcd allows access to metadata for xkcd comics.
 package xkcd
 
 import (
