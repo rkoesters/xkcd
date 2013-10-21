@@ -1,4 +1,4 @@
-// xkcd-xml prints information about a xkcd comic in xml format.
+// xkcd-xml prints information about an xkcd comic in xml format.
 //
 // Usage:
 //	xkcd-xml [-n number]

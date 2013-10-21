@@ -1,4 +1,4 @@
-// xkcd-info prints information about a xkcd comic.
+// xkcd-info prints information about an xkcd comic.
 //
 // Usage:
 //	xkcd-info [-n number]

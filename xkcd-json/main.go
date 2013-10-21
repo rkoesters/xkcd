@@ -1,4 +1,4 @@
-// xkcd-json prints information about a xkcd comic in json format.
+// xkcd-json prints information about an xkcd comic in json format.
 //
 // Usage:
 //	xkcd-json [-n number]
