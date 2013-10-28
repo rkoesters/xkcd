@@ -29,13 +29,13 @@ type Comic struct {
 	Transcript string `json:"transcript"`
 }
 
-// Get returns the information about the xkcd comic number `n'.
+// Get fetches information about the xkcd comic number `n'.
 func Get(n int) (*Comic, error) {
 	url := fmt.Sprintf(templateURL, n)
 	return getByURL(url)
 }
 
-// GetCurrent returns information for the newest xkcd comic.
+// GetCurrent fetches information for the newest xkcd comic.
 func GetCurrent() (*Comic, error) {
 	return getByURL(currentURL)
 }
@@ -51,7 +51,6 @@ func getByURL(url string) (*Comic, error) {
 	if resp.StatusCode >= 400 {
 		return nil, errors.New(resp.Status)
 	}
-
 	return New(resp.Body)
 }
 
