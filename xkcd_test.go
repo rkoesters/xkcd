@@ -34,6 +34,9 @@ func TestGet(t *testing.T) {
 {{title text: RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.}}`,
 	}
 
+	t.Log("comic: ", comic)
+	t.Log("expected: ", expected)
+
 	if *comic != *expected {
 		t.Fail()
 	}
@@ -50,8 +53,11 @@ func TestGetCurrent(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	t.Log("comic1: ", comic1)
+	t.Log("comic2: ", comic2)
+
 	if *comic1 != *comic2 {
-		t.Fail()
+		t.Fatal("comic1 and comic2 don't match")
 	}
 }
 
