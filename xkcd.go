@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -51,9 +52,13 @@ func getByURL(url string) (*Comic, error) {
 		return nil, errors.New(resp.Status)
 	}
 
-	dec := json.NewDecoder(resp.Body)
+	return New(resp.Body)
+}
 
+// New reads from an io.Reader and returns a *Comic struct.
+func New(r io.Reader) (*Comic, error) {
+	d := json.NewDecoder(r)
 	c := new(Comic)
-	err = dec.Decode(c)
+	err := d.Decode(c)
 	return c, err
 }
