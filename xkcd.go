@@ -9,11 +9,6 @@ import (
 	"net/http"
 )
 
-const (
-	currentURL  = "http://xkcd.com/info.0.json"
-	templateURL = "http://xkcd.com/%v/info.0.json"
-)
-
 // Comic is a struct that contains infomation about an xkcd comic.
 type Comic struct {
 	Num        int    `json:"num"`
@@ -28,6 +23,19 @@ type Comic struct {
 	Link       string `json:"link"`
 	Transcript string `json:"transcript"`
 }
+
+// New reads from an io.Reader and returns a *Comic struct.
+func New(r io.Reader) (*Comic, error) {
+	d := json.NewDecoder(r)
+	c := new(Comic)
+	err := d.Decode(c)
+	return c, err
+}
+
+const (
+	currentURL  = "http://xkcd.com/info.0.json"
+	templateURL = "http://xkcd.com/%v/info.0.json"
+)
 
 // Get fetches information about the xkcd comic number `n'.
 func Get(n int) (*Comic, error) {
@@ -52,12 +60,4 @@ func getByURL(url string) (*Comic, error) {
 		return nil, errors.New(resp.Status)
 	}
 	return New(resp.Body)
-}
-
-// New reads from an io.Reader and returns a *Comic struct.
-func New(r io.Reader) (*Comic, error) {
-	d := json.NewDecoder(r)
-	c := new(Comic)
-	err := d.Decode(c)
-	return c, err
 }
