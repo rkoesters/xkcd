@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/conformal/gotk3/gtk"
+	"github.com/gotk3/gotk3/gtk"
 	"github.com/rkoesters/xkcd"
 	"log"
 	"math/rand"
@@ -61,6 +61,12 @@ func (v *XKCDViewer) setupHeaderBar() error {
 		return err
 	}
 
+	style, err := box.GetStyleContext()
+	if err != nil {
+		return err
+	}
+	style.AddClass("linked")
+
 	btnPrev, err := gtk.ButtonNewFromIconName("go-previous-symbolic", gtk.ICON_SIZE_MENU)
 	if err != nil {
 		return err
@@ -91,12 +97,12 @@ func (v *XKCDViewer) setupHeaderBar() error {
 	if err != nil {
 		return err
 	}
+	rand.Seed(time.Now().Unix())
 	btnRand.Connect("clicked", func() {
 		c, err := xkcd.GetCurrent()
 		if err != nil {
 			log.Print(err)
 		}
-		rand.Seed(time.Now().Unix())
 		err = v.SetComic(rand.Intn(c.Num) + 1)
 		if err != nil {
 			log.Print(err)
@@ -107,6 +113,23 @@ func (v *XKCDViewer) setupHeaderBar() error {
 	if err != nil {
 		return err
 	}
+
+	btnAbout, err := gtk.ButtonNewWithLabel("About")
+	if err != nil {
+		return nil
+	}
+	btnAbout.Connect("clicked", func() {
+		abdi, err := gtk.AboutDialogNew()
+		if err != nil {
+			log.Print(err)
+			return
+		}
+		abdi.SetProgramName("XKCD GUI")
+		abdi.SetLicense("TODO")
+		abdi.SetVersion("v0.1")
+		abdi.SetWebsite("http://github.com/rkoesters/xkcd")
+		abdi.ShowAll()
+	})
 
 	v.hdr.PackEnd(btnMenu)
 	v.hdr.PackEnd(btnRand)

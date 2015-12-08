@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/conformal/gotk3/gtk"
+	"github.com/gotk3/gotk3/gtk"
 	"github.com/rkoesters/xkcd"
 	"log"
 	"os"
