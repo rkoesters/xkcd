@@ -6,6 +6,8 @@ import (
 	"github.com/rkoesters/xkcd"
 	"log"
 	"os"
+	"math/rand"
+	"time"
 )
 
 var number = flag.Int("n", 0, "Comic number.")
@@ -26,6 +28,8 @@ func main() {
 		}
 		*number = c.Num
 	}
+
+	rand.Seed(time.Now().Unix())
 
 	viewer, err := New()
 	if err != nil {

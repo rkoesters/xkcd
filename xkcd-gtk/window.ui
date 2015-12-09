@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<!-- interface-requires gtk+ 3.8 -->
+	<object class="GtkWindow" id="ViewerWindow">
+		<property name="visible">True</property>
+		<property name="default-height">600</property>
+		<property name="default-width">800</property>
+		<child type="titlebar">
+			<object class="GtkHeaderBar" id="header">
+				<property name="visible">True</property>
+				<property name="show-close-button">True</property>
+				<property name="title">XKCD</property>
+				<child>
+					<object class="GtkBox">
+						<property name="visible">True</property>
+						<property name="orientation">horizontal</property>
+						<property name="homogeneous">True</property>
+						<style>
+							<class name="linked"/>
+						</style>
+						<child>
+							<object class="GtkButton" id="previous">
+								<property name="visible">True</property>
+								<style>
+									<class name="image-button"/>
+								</style>
+								<child>
+									<object class="GtkImage">
+										<property name="visible">True</property>
+										<property name="icon-name">go-previous-symbolic</property>
+									</object>
+								</child>
+							</object>
+						</child>
+						<child>
+							<object class="GtkButton" id="next">
+								<property name="visible">True</property>
+								<style>
+									<class name="image-button"/>
+								</style>
+								<child>
+									<object class="GtkImage">
+										<property name="visible">True</property>
+										<property name="icon-name">go-next-symbolic</property>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="GtkMenuButton" id="menu">
+						<property name="visible">True</property>
+						<property name="use-popover">True</property>
+						<style>
+							<class name="image-button"/>
+						</style>
+						<child>
+							<object class="GtkImage">
+								<property name="visible">True</property>
+								<property name="icon-name">open-menu-symbolic</property>
+							</object>
+						</child>
+					</object>
+					<packing>
+						<property name="pack-type">end</property>
+					</packing>
+				</child>
+				<child>
+					<object class="GtkButton" id="random">
+						<property name="visible">True</property>
+						<style>
+							<class name="image-button"/>
+						</style>
+						<child>
+							<object class="GtkImage">
+								<property name="visible">True</property>
+								<property name="icon-name">media-playlist-shuffle-symbolic</property>
+							</object>
+						</child>
+					</object>
+					<packing>
+						<property name="pack-type">end</property>
+					</packing>
+				</child>
+			</object>
+		</child>
+		<child>
+			<object class="GtkScrolledWindow">
+				<property name="visible">True</property>
+				<child>
+					<object class="GtkImage" id="ComicImage">
+						<property name="visible">True</property>
+					</object>
+				</child>
+			</object>
+		</child>
+	</object>
+</interface>
