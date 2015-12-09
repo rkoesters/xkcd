@@ -5,8 +5,8 @@ import (
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/rkoesters/xkcd"
 	"log"
-	"os"
 	"math/rand"
+	"os"
 	"time"
 )
 

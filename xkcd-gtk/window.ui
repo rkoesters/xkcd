@@ -21,6 +21,7 @@
 						<child>
 							<object class="GtkButton" id="previous">
 								<property name="visible">True</property>
+								<signal name="clicked" handler="PreviousComic"/>
 								<style>
 									<class name="image-button"/>
 								</style>
@@ -35,6 +36,7 @@
 						<child>
 							<object class="GtkButton" id="next">
 								<property name="visible">True</property>
+								<signal name="clicked" handler="NextComic"/>
 								<style>
 									<class name="image-button"/>
 								</style>
@@ -69,6 +71,7 @@
 				<child>
 					<object class="GtkButton" id="random">
 						<property name="visible">True</property>
+						<signal name="clicked" handler="RandomComic"/>
 						<style>
 							<class name="image-button"/>
 						</style>

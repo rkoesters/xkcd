@@ -1,11 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/rkoesters/xkcd"
 	"log"
-	"errors"
+	"math/rand"
 )
 
 type XKCDViewer struct {
@@ -26,6 +27,12 @@ func New() (*XKCDViewer, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	builder.ConnectSignals(map[string]interface{}{
+		"PreviousComic": v.PreviousComic,
+		"NextComic":     v.NextComic,
+		"RandomComic":   v.RandomComic,
+	})
 
 	var ok bool
 	obj, err := builder.GetObject("ViewerWindow")
@@ -58,6 +65,32 @@ func New() (*XKCDViewer, error) {
 	})
 
 	return v, nil
+}
+
+func (v *XKCDViewer) PreviousComic() {
+	err := v.SetComic(v.comic.Num - 1)
+	if err != nil {
+		log.Print(err)
+	}
+}
+
+func (v *XKCDViewer) NextComic() {
+	err := v.SetComic(v.comic.Num + 1)
+	if err != nil {
+		log.Print(err)
+	}
+}
+
+func (v *XKCDViewer) RandomComic() {
+	c, err := xkcd.GetCurrent()
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	err = v.SetComic(rand.Intn(c.Num) + 1)
+	if err != nil {
+		log.Print(err)
+	}
 }
 
 func (v *XKCDViewer) SetComic(n int) error {
