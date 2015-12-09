@@ -9,31 +9,37 @@ import (
 	"math/rand"
 )
 
-type XKCDViewer struct {
+// Viewer is a struct holding a gtk window for viewing XKCD comics.
+type Viewer struct {
 	win   *gtk.Window
 	hdr   *gtk.HeaderBar
 	img   *gtk.Image
 	comic *xkcd.Comic
 }
 
-func New() (*XKCDViewer, error) {
-	v := new(XKCDViewer)
+// New creates a new XKCD viewer window.
+func New() (*Viewer, error) {
+	v := new(Viewer)
 
+	// Builder the gtk interface using gtk.Builder.
 	builder, err := gtk.BuilderNew()
 	if err != nil {
 		return nil, err
 	}
-	err = builder.AddFromFile("window.ui")
+	err = builder.AddFromFile("viewer.ui")
 	if err != nil {
 		return nil, err
 	}
 
+	// Connect the gtk signals to our functions.
 	builder.ConnectSignals(map[string]interface{}{
 		"PreviousComic": v.PreviousComic,
 		"NextComic":     v.NextComic,
 		"RandomComic":   v.RandomComic,
 	})
 
+	// We want access to Window, HeaderBar, and Image in the future,
+	// so lets get access to them now.
 	var ok bool
 	obj, err := builder.GetObject("ViewerWindow")
 	if err != nil {
@@ -60,6 +66,7 @@ func New() (*XKCDViewer, error) {
 		return nil, errors.New("image")
 	}
 
+	// Closing the window should exit the program.
 	v.win.Connect("destroy", func() {
 		gtk.MainQuit()
 	})
@@ -67,21 +74,24 @@ func New() (*XKCDViewer, error) {
 	return v, nil
 }
 
-func (v *XKCDViewer) PreviousComic() {
+// PreviousComic sets the current comic to the previous comic.
+func (v *Viewer) PreviousComic() {
 	err := v.SetComic(v.comic.Num - 1)
 	if err != nil {
 		log.Print(err)
 	}
 }
 
-func (v *XKCDViewer) NextComic() {
+// NextComic sets the current comic to the next comic.
+func (v *Viewer) NextComic() {
 	err := v.SetComic(v.comic.Num + 1)
 	if err != nil {
 		log.Print(err)
 	}
 }
 
-func (v *XKCDViewer) RandomComic() {
+// RandomComic sets the current comic to a random comic.
+func (v *Viewer) RandomComic() {
 	c, err := xkcd.GetCurrent()
 	if err != nil {
 		log.Print(err)
@@ -93,7 +103,8 @@ func (v *XKCDViewer) RandomComic() {
 	}
 }
 
-func (v *XKCDViewer) SetComic(n int) error {
+// SetComic sets the current comic to the given comic.
+func (v *Viewer) SetComic(n int) error {
 	var err error
 	v.comic, err = getComicInfo(n)
 	if err != nil {
