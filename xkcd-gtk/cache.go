@@ -12,7 +12,7 @@ import (
 )
 
 func getComicPath(n int) string {
-	return filepath.Join(basedir.CacheHome, "xkcd-gui", strconv.Itoa(n))
+	return filepath.Join(basedir.CacheHome, "xkcd-gtk", strconv.Itoa(n))
 }
 
 func getComicInfoPath(n int) string {
