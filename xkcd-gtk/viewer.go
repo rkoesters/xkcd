@@ -41,7 +41,7 @@ func New() (*Viewer, error) {
 	// We want access to Window, HeaderBar, and Image in the future,
 	// so lets get access to them now.
 	var ok bool
-	obj, err := builder.GetObject("ViewerWindow")
+	obj, err := builder.GetObject("viewer-window")
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func New() (*Viewer, error) {
 	if !ok {
 		return nil, errors.New("headerbar")
 	}
-	obj, err = builder.GetObject("ComicImage")
+	obj, err = builder.GetObject("comic-image")
 	if err != nil {
 		return nil, err
 	}

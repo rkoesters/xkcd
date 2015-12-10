@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 	<!-- interface-requires gtk+ 3.12 -->
-	<object class="GtkWindow" id="ViewerWindow">
+	<object class="GtkWindow" id="viewer-window">
 		<property name="visible">True</property>
 		<property name="default-height">600</property>
 		<property name="default-width">800</property>
@@ -93,7 +93,7 @@
 			<object class="GtkScrolledWindow">
 				<property name="visible">True</property>
 				<child>
-					<object class="GtkImage" id="ComicImage">
+					<object class="GtkImage" id="comic-image">
 						<property name="visible">True</property>
 					</object>
 				</child>
