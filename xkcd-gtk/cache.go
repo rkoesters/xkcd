@@ -49,12 +49,12 @@ func getComicInfo(n int) (*xkcd.Comic, error) {
 }
 
 func downloadComicInfo(n int) error {
-	err := os.MkdirAll(getComicPath(n), 0777)
+	comic, err := xkcd.Get(n)
 	if err != nil {
 		return err
 	}
 
-	comic, err := xkcd.Get(n)
+	err = os.MkdirAll(getComicPath(n), 0777)
 	if err != nil {
 		return err
 	}
@@ -63,6 +63,7 @@ func downloadComicInfo(n int) error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
 	e := json.NewEncoder(f)
 	err = e.Encode(comic)
@@ -93,16 +94,17 @@ func downloadComicImage(n int) error {
 		return err
 	}
 
-	f, err := os.Create(getComicImagePath(n))
-	if err != nil {
-		return err
-	}
-
 	resp, err := http.Get(c.Img)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
+
+	f, err := os.Create(getComicImagePath(n))
+	if err != nil {
+		return err
+	}
+	defer f.Close()
 
 	_, err = io.Copy(f, resp.Body)
 	if err != nil {
