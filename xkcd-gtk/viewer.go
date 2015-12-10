@@ -36,7 +36,7 @@ func New() (*Viewer, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = builder.AddFromFile("xkcd-gtk.ui")
+	err = builder.AddFromFile("viewer.ui")
 	if err != nil {
 		return nil, err
 	}
