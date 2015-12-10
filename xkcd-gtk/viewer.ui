@@ -243,6 +243,7 @@
 					<object class="GtkModelButton">
 						<property name="visible">True</property>
 						<property name="text">View Transcript</property>
+						<signal name="clicked" handler="ShowTranscript"/>
 					</object>
 				</child>
 				<child>

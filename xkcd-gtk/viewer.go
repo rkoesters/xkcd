@@ -46,6 +46,7 @@ func New() (*Viewer, error) {
 		"PreviousComic":   v.PreviousComic,
 		"NextComic":       v.NextComic,
 		"RandomComic":     v.RandomComic,
+		"ShowTranscript":  v.ShowTranscript,
 		"showAboutDialog": showAboutDialog,
 	})
 
@@ -146,6 +147,54 @@ func (v *Viewer) RandomComic() {
 	if err != nil {
 		log.Print(err)
 	}
+}
+
+// ShowTranscript opens a dialog displaying the transcript for the
+// current comic.
+func (v *Viewer) ShowTranscript() {
+	builder, err := gtk.BuilderNew()
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	err = builder.AddFromFile("transcript.ui")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+
+	obj, err := builder.GetObject("transcript-dialog")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	dialog, ok := obj.(*gtk.Dialog)
+	if !ok {
+		log.Print("error getting transcript-dialog")
+		return
+	}
+	dialog.SetTransientFor(v.win)
+	dialog.SetModal(true)
+
+	obj, err = builder.GetObject("text-view")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	textview, ok := obj.(*gtk.TextView)
+	if !ok {
+		log.Print("error getting text-view")
+		return
+	}
+
+	buf, err := textview.GetBuffer()
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	buf.SetText(strings.Replace(v.comic.Transcript, "\\n", "\n", -1))
+
+	dialog.Show()
 }
 
 // SetComic sets the current comic to the given comic.

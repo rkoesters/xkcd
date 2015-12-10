@@ -63,5 +63,5 @@ func showAboutDialog() {
 		log.Print("error getting about-dialog")
 		return
 	}
-	win.ShowAll()
+	win.Show()
 }
