@@ -259,6 +259,7 @@
 					<object class="GtkModelButton">
 						<property name="visible">True</property>
 						<property name="text">About</property>
+						<signal name="clicked" handler="showAboutDialog"/>
 					</object>
 				</child>
 			</object>

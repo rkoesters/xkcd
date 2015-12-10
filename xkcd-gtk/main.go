@@ -40,3 +40,28 @@ func main() {
 
 	gtk.Main()
 }
+
+func showAboutDialog() {
+	builder, err := gtk.BuilderNew()
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	err = builder.AddFromFile("about.ui")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+
+	obj, err := builder.GetObject("about-dialog")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	win, ok := obj.(*gtk.AboutDialog)
+	if !ok {
+		log.Print("error getting about-dialog")
+		return
+	}
+	win.ShowAll()
+}

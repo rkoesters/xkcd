@@ -43,9 +43,11 @@ func New() (*Viewer, error) {
 
 	// Connect the gtk signals to our functions.
 	builder.ConnectSignals(map[string]interface{}{
-		"PreviousComic": v.PreviousComic,
-		"NextComic":     v.NextComic,
-		"RandomComic":   v.RandomComic})
+		"PreviousComic":   v.PreviousComic,
+		"NextComic":       v.NextComic,
+		"RandomComic":     v.RandomComic,
+		"showAboutDialog": showAboutDialog,
+	})
 
 	// We want access to Window, HeaderBar, and Image in the future,
 	// so lets get access to them now.
