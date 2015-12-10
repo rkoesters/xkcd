@@ -41,6 +41,7 @@ func getComicInfo(n int) (*xkcd.Comic, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer f.Close()
 	c, err := xkcd.New(f)
 	if err != nil {
 		return nil, err
