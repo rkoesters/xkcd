@@ -14,10 +14,12 @@ import (
 
 // Viewer is a struct holding a gtk window for viewing XKCD comics.
 type Viewer struct {
-	comic *xkcd.Comic
-	win   *gtk.Window
-	hdr   *gtk.HeaderBar
-	img   *gtk.Image
+	comic    *xkcd.Comic
+	win      *gtk.Window
+	hdr      *gtk.HeaderBar
+	previous *gtk.Button
+	next     *gtk.Button
+	img      *gtk.Image
 	// The labels in the details popover.
 	detailsNumber *gtk.Label
 	detailsTitle  *gtk.Label
@@ -63,6 +65,22 @@ func New() (*Viewer, error) {
 	v.hdr, ok = obj.(*gtk.HeaderBar)
 	if !ok {
 		return nil, errors.New("error getting header")
+	}
+	obj, err = builder.GetObject("previous")
+	if err != nil {
+		return nil, err
+	}
+	v.previous, ok = obj.(*gtk.Button)
+	if !ok {
+		return nil, errors.New("error getting previous")
+	}
+	obj, err = builder.GetObject("next")
+	if err != nil {
+		return nil, err
+	}
+	v.next, ok = obj.(*gtk.Button)
+	if !ok {
+		return nil, errors.New("error getting next")
 	}
 	obj, err = builder.GetObject("comic-image")
 	if err != nil {
@@ -153,6 +171,24 @@ func (v *Viewer) SetComic(n int) error {
 		v.detailsLink.SetMarkup(fmtLink)
 	} else {
 		v.detailsLink.SetText("")
+	}
+
+	// Enable/disable previous button.
+	if v.comic.Num > 1 {
+		v.previous.SetSensitive(true)
+	} else {
+		v.previous.SetSensitive(false)
+	}
+
+	// Enable/disable next button.
+	newest, err := getNewestComicInfo()
+	if err != nil {
+		return err
+	}
+	if v.comic.Num < newest.Num {
+		v.next.SetSensitive(true)
+	} else {
+		v.next.SetSensitive(false)
 	}
 
 	return nil
