@@ -117,7 +117,7 @@ func (v *Viewer) NextComic() {
 
 // RandomComic sets the current comic to a random comic.
 func (v *Viewer) RandomComic() {
-	c, err := xkcd.GetCurrent()
+	c, err := getNewestComicInfo()
 	if err != nil {
 		log.Print(err)
 		return
@@ -130,11 +130,11 @@ func (v *Viewer) RandomComic() {
 
 // SetComic sets the current comic to the given comic.
 func (v *Viewer) SetComic(n int) error {
-	var err error
-	v.comic, err = getComicInfo(n)
+	c, err := getComicInfo(n)
 	if err != nil {
 		return err
 	}
+	v.comic = c
 
 	imgPath, err := getComicImage(n)
 	if err != nil {

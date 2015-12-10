@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"github.com/gotk3/gotk3/gtk"
-	"github.com/rkoesters/xkcd"
 	"log"
 	"math/rand"
 	"os"
@@ -22,7 +21,7 @@ func main() {
 	}
 
 	if *number == 0 {
-		c, err := xkcd.GetCurrent()
+		c, err := getNewestComicInfo()
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -49,6 +49,19 @@ func getComicInfo(n int) (*xkcd.Comic, error) {
 	return c, nil
 }
 
+var newestComic *xkcd.Comic
+
+func getNewestComicInfo() (*xkcd.Comic, error) {
+	var err error
+	if newestComic == nil {
+		newestComic, err = xkcd.GetCurrent()
+		if err != nil {
+			return nil, err
+		}
+	}
+	return newestComic, nil
+}
+
 func downloadComicInfo(n int) error {
 	comic, err := xkcd.Get(n)
 	if err != nil {
