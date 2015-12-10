@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-	<!-- interface-requires gtk+ 3.8 -->
+	<!-- interface-requires gtk+ 3.12 -->
 	<object class="GtkWindow" id="ViewerWindow">
 		<property name="visible">True</property>
 		<property name="default-height">600</property>
@@ -51,9 +51,10 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkMenuButton" id="menu">
+					<object class="GtkMenuButton" id="menu-button">
 						<property name="visible">True</property>
 						<property name="use-popover">True</property>
+						<property name="popover">menu-popover</property>
 						<style>
 							<class name="image-button"/>
 						</style>
@@ -94,6 +95,34 @@
 				<child>
 					<object class="GtkImage" id="ComicImage">
 						<property name="visible">True</property>
+					</object>
+				</child>
+			</object>
+		</child>
+	</object>
+	<object class="GtkPopover" id="menu-popover">
+		<property name="visible">True</property>
+		<child>
+			<object class="GtkBox">
+				<property name="visible">True</property>
+				<property name="orientation">vertical</property>
+				<property name="margin">10</property>
+				<child>
+					<object class="GtkModelButton">
+						<property name="visible">True</property>
+						<property name="text">Go to</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkModelButton">
+						<property name="visible">True</property>
+						<property name="text">View Transcript</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkModelButton">
+						<property name="visible">True</property>
+						<property name="text">About</property>
 					</object>
 				</child>
 			</object>
