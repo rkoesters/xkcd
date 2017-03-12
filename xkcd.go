@@ -48,7 +48,7 @@ func GetCurrent() (*Comic, error) {
 	return getByURL(currentURL)
 }
 
-const ErrNotFound = errors.New("Error retrieving comic")
+var ErrNotFound = errors.New("Error retrieving comic")
 
 // getByURL returns infomation downloaded from `url'.
 func getByURL(url string) (*Comic, error) {
