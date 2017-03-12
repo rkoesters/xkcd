@@ -48,6 +48,8 @@ func GetCurrent() (*Comic, error) {
 	return getByURL(currentURL)
 }
 
+const ErrNotFound = errors.New("Error retrieving comic")
+
 // getByURL returns infomation downloaded from `url'.
 func getByURL(url string) (*Comic, error) {
 	resp, err := http.Get(url)
@@ -57,7 +59,7 @@ func getByURL(url string) (*Comic, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 400 {
-		return nil, errors.New(resp.Status)
+		return nil, ErrNotFound
 	}
 	return New(resp.Body)
 }
