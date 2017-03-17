@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-// Comic is a struct that contains infomation about an xkcd comic.
+// Comic is a struct that contains information about an xkcd comic.
 type Comic struct {
 	Num        int    `json:"num"`
 	Title      string `json:"title"`
@@ -50,7 +50,7 @@ func GetCurrent() (*Comic, error) {
 
 var ErrNotFound = errors.New("Error retrieving comic")
 
-// getByURL returns infomation downloaded from `url'.
+// getByURL returns information downloaded from `url'.
 func getByURL(url string) (*Comic, error) {
 	resp, err := http.Get(url)
 	if err != nil {
