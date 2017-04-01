@@ -63,3 +63,14 @@ func getByURL(url string) (*Comic, error) {
 	}
 	return New(resp.Body)
 }
+
+// Image retrives the comic image from the xkcd server.
+func (c *Comic) Image() (*Image, error) {
+	resp, err := http.Get(c.Img)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	return NewImage(resp.Body)
+}
