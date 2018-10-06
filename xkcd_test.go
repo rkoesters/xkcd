@@ -17,7 +17,7 @@ func TestGet(t *testing.T) {
 		Num:       221,
 		Title:     "Random Number",
 		SafeTitle: "Random Number",
-		Img:       "http://imgs.xkcd.com/comics/random_number.png",
+		Img:       "https://imgs.xkcd.com/comics/random_number.png",
 		Alt:       "RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.",
 		Year:      "2007",
 		Month:     "2",
@@ -63,7 +63,7 @@ func TestGetCurrent(t *testing.T) {
 
 func Test404(t *testing.T) {
 	_, err := xkcd.Get(404)
-	if err.Error() != "404 Not Found" {
+	if err != xkcd.ErrNotFound {
 		t.Fatal(err)
 	}
 }

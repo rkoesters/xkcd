@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleNew() {
-	r := strings.NewReader(`{"month": "3", "num": 1190, "link": "http:\/\/geekwagon.net\/projects\/xkcd1190\/", "year": "2013", "news": "", "safe_title": "Time", "transcript": "", "alt": "The end.", "img": "http:\/\/imgs.xkcd.com\/comics\/time.png", "title": "Time", "day": "25"}`)
+	r := strings.NewReader(`{"month": "3", "num": 1190, "link": "https:\/\/geekwagon.net\/projects\/xkcd1190\/", "year": "2013", "news": "", "safe_title": "Time", "transcript": "", "alt": "The end.", "img": "https:\/\/imgs.xkcd.com\/comics\/time.png", "title": "Time", "day": "25"}`)
 
 	comic, err := xkcd.New(r)
 	if err != nil {
@@ -20,7 +20,7 @@ func ExampleNew() {
 	fmt.Printf("Alt Text: %v\n", comic.Alt)
 	// Output:
 	// Number: 1190
-	// Image: http://imgs.xkcd.com/comics/time.png
+	// Image: https://imgs.xkcd.com/comics/time.png
 	// Alt Text: The end.
 }
 
@@ -35,6 +35,6 @@ func ExampleGet() {
 	fmt.Printf("Alt Text: %v\n", comic.Alt)
 	// Output:
 	// Number: 140
-	// Image: http://imgs.xkcd.com/comics/delicious.png
+	// Image: https://imgs.xkcd.com/comics/delicious.png
 	// Alt Text: I'm currently in the I Have Cheese phase of this cycle.
 }
