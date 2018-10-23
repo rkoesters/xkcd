@@ -45,7 +45,14 @@ func getImageFromURL(url string) (*Image, error) {
 	}
 	defer resp.Body.Close()
 
-	return NewImage(resp.Body)
+	img, err := NewImage(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	img.sourceURL = url
+
+	return img, nil
 }
 
 // SourceURL is URL from which the comic image was retrieved. If image
