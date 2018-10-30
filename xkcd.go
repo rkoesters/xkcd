@@ -25,7 +25,10 @@ type Comic struct {
 }
 
 // New reads from an io.Reader and returns a *Comic struct. Assumes text
-// is UTF-8.
+// is UTF-8. WARNING: this function will improperly decode comics
+// retrieved directly from xkcd.com as xkcd.com provides ISO8859-1
+// encoded JSON instead of UTF-8 encoded JSON. Use Get or GetCurrent for
+// retrieving comics directly from xkcd.com.
 func New(r io.Reader) (*Comic, error) {
 	d := json.NewDecoder(r)
 	c := new(Comic)
@@ -33,10 +36,10 @@ func New(r io.Reader) (*Comic, error) {
 	return c, err
 }
 
-// NewFixEncoding reads from an io.Reader and returns a *Comic struct.
+// newFixEncoding reads from an io.Reader and returns a *Comic struct.
 // This version of New properly handles ISO8859-1 encoded text, like
 // that delivered by xkcd.com.
-func NewFixEncoding(r io.Reader) (*Comic, error) {
+func newFixEncoding(r io.Reader) (*Comic, error) {
 	c, err := New(r)
 	fixComic(c)
 	return c, err
@@ -71,7 +74,7 @@ func getByURL(url string) (*Comic, error) {
 	if resp.StatusCode >= 400 {
 		return nil, ErrNotFound
 	}
-	return NewFixEncoding(resp.Body)
+	return newFixEncoding(resp.Body)
 }
 
 // Image retrieves the comic image from the xkcd server.
