@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/rkoesters/xkcd"
 	"io"
+	"reflect"
 	"testing"
 )
 
@@ -37,7 +38,7 @@ func TestGet(t *testing.T) {
 	t.Log("comic: ", comic)
 	t.Log("expected: ", expected)
 
-	if *comic != *expected {
+	if !reflect.DeepEqual(comic, expected) {
 		t.Fail()
 	}
 }
@@ -56,7 +57,7 @@ func TestGetCurrent(t *testing.T) {
 	t.Log("comic1: ", comic1)
 	t.Log("comic2: ", comic2)
 
-	if *comic1 != *comic2 {
+	if !reflect.DeepEqual(comic1, comic2) {
 		t.Fatal("comic1 and comic2 don't match")
 	}
 }
@@ -92,7 +93,63 @@ func TestNew(t *testing.T) {
 	t.Log("comic1: ", comic1)
 	t.Log("comic2: ", comic2)
 
-	if *comic1 != *comic2 {
+	if !reflect.DeepEqual(comic1, comic2) {
 		t.Fatal("comic1 and comic2 don't match")
+	}
+}
+
+func Test1956(t *testing.T) {
+	expect := &xkcd.Comic{
+		Num:        1956,
+		Title:      "Unification",
+		SafeTitle:  "Unification",
+		Img:        "https://imgs.xkcd.com/comics/unification.png",
+		Alt:        "For a while, some physicists worked on a theory unifying the other forces with both the force of gravity and the film \"Gravity,\" but even after Alfonso Cuarón was held in a deep underground chamber of water for 10^31 years he refused to sell his film to Disney.",
+		Year:       "2018",
+		Month:      "2",
+		Day:        "16",
+		News:       "",
+		Link:       "",
+		Transcript: "",
+	}
+
+	actual, err := xkcd.Get(expect.Num)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("actual=%v", actual)
+	t.Logf("expect=%v", expect)
+
+	if !reflect.DeepEqual(actual, expect) {
+		t.Fail()
+	}
+}
+
+func Test2038(t *testing.T) {
+	expect := &xkcd.Comic{
+		Num:        2038,
+		Title:      "Hazard Symbol",
+		SafeTitle:  "Hazard Symbol",
+		Img:        "https://imgs.xkcd.com/comics/hazard_symbol.png",
+		Alt:        "The warning diamond on the Materials Safety Data Sheet for this stuff just has the \"😰\" emoji in all four fields.",
+		Year:       "2018",
+		Month:      "8",
+		Day:        "27",
+		News:       "",
+		Link:       "",
+		Transcript: "",
+	}
+
+	actual, err := xkcd.Get(expect.Num)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("actual=%v", actual)
+	t.Logf("expect=%v", expect)
+
+	if !reflect.DeepEqual(actual, expect) {
+		t.Fail()
 	}
 }
