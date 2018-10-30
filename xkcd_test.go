@@ -98,6 +98,34 @@ func TestNew(t *testing.T) {
 	}
 }
 
+func Test1953(t *testing.T) {
+	expect := &xkcd.Comic{
+		Num:        1953,
+		Title:      "The History of Unicode",
+		SafeTitle:  "The History of Unicode",
+		Img:        "https://imgs.xkcd.com/comics/the_history_of_unicode.png",
+		Alt:        "2048: \"Great news for Maine—we're once again an independent state!!! Thanks, @unicode, for ruling in our favor and sending troops to end New Hampshire's annexation. 🙏🚁🎖️\"",
+		Year:       "2018",
+		Month:      "2",
+		Day:        "9",
+		News:       "",
+		Link:       "",
+		Transcript: "",
+	}
+
+	actual, err := xkcd.Get(expect.Num)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("actual=%v", actual)
+	t.Logf("expect=%v", expect)
+
+	if !reflect.DeepEqual(actual, expect) {
+		t.Fail()
+	}
+}
+
 func Test1956(t *testing.T) {
 	expect := &xkcd.Comic{
 		Num:        1956,
