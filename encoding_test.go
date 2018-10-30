@@ -31,10 +31,6 @@ func TestFixEncoding(t *testing.T) {
 			t.Errorf("%+q isn't valid utf-8", actual)
 		}
 
-		if !utf8.ValidString(expect) {
-			t.Errorf("%+q isn't valid utf-8", expect)
-		}
-
 		if actual != expect {
 			t.Fail()
 		}

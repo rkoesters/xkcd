@@ -6,6 +6,7 @@ import (
 	"io"
 	"reflect"
 	"testing"
+	"unicode/utf8"
 )
 
 func TestGet(t *testing.T) {
@@ -38,6 +39,10 @@ func TestGet(t *testing.T) {
 	t.Log("comic: ", comic)
 	t.Log("expected: ", expected)
 
+	if !comicValidUtf8(comic) {
+		t.Errorf("%+q isn't valid utf-8", comic)
+	}
+
 	if !reflect.DeepEqual(comic, expected) {
 		t.Fail()
 	}
@@ -56,6 +61,14 @@ func TestGetCurrent(t *testing.T) {
 
 	t.Log("comic1: ", comic1)
 	t.Log("comic2: ", comic2)
+
+	if !comicValidUtf8(comic1) {
+		t.Errorf("%+q isn't valid utf-8", comic1)
+	}
+
+	if !comicValidUtf8(comic2) {
+		t.Errorf("%+q isn't valid utf-8", comic2)
+	}
 
 	if !reflect.DeepEqual(comic1, comic2) {
 		t.Fatal("comic1 and comic2 don't match")
@@ -93,6 +106,14 @@ func TestNew(t *testing.T) {
 	t.Log("comic1: ", comic1)
 	t.Log("comic2: ", comic2)
 
+	if !comicValidUtf8(comic1) {
+		t.Errorf("%+q isn't valid utf-8", comic1)
+	}
+
+	if !comicValidUtf8(comic2) {
+		t.Errorf("%+q isn't valid utf-8", comic2)
+	}
+
 	if !reflect.DeepEqual(comic1, comic2) {
 		t.Fatal("comic1 and comic2 don't match")
 	}
@@ -120,6 +141,10 @@ func Test1953(t *testing.T) {
 
 	t.Logf("actual=%v", actual)
 	t.Logf("expect=%v", expect)
+
+	if !comicValidUtf8(actual) {
+		t.Errorf("%+q isn't valid utf-8", actual)
+	}
 
 	if !reflect.DeepEqual(actual, expect) {
 		t.Fail()
@@ -149,6 +174,10 @@ func Test1956(t *testing.T) {
 	t.Logf("actual=%v", actual)
 	t.Logf("expect=%v", expect)
 
+	if !comicValidUtf8(actual) {
+		t.Errorf("%+q isn't valid utf-8", actual)
+	}
+
 	if !reflect.DeepEqual(actual, expect) {
 		t.Fail()
 	}
@@ -177,7 +206,24 @@ func Test2038(t *testing.T) {
 	t.Logf("actual=%v", actual)
 	t.Logf("expect=%v", expect)
 
+	if !comicValidUtf8(actual) {
+		t.Errorf("%+q isn't valid utf-8", actual)
+	}
+
 	if !reflect.DeepEqual(actual, expect) {
 		t.Fail()
 	}
+}
+
+func comicValidUtf8(c *xkcd.Comic) bool {
+	return utf8.ValidString(c.Title) &&
+		utf8.ValidString(c.SafeTitle) &&
+		utf8.ValidString(c.Img) &&
+		utf8.ValidString(c.Alt) &&
+		utf8.ValidString(c.Year) &&
+		utf8.ValidString(c.Month) &&
+		utf8.ValidString(c.Day) &&
+		utf8.ValidString(c.News) &&
+		utf8.ValidString(c.Link) &&
+		utf8.ValidString(c.Transcript)
 }
