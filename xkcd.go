@@ -29,6 +29,7 @@ func New(r io.Reader) (*Comic, error) {
 	d := json.NewDecoder(r)
 	c := new(Comic)
 	err := d.Decode(c)
+	fixComic(c)
 	return c, err
 }
 
