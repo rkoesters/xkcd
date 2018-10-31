@@ -77,7 +77,9 @@ func getByURL(url string) (*Comic, error) {
 	return newFixEncoding(resp.Body)
 }
 
-// Image retrieves the comic image from the xkcd server.
+// Image retrieves the comic image from the xkcd server and returns it
+// as an image.Image. Comics in GIF format won't contain the entire
+// image, see image/gif.Decode for more information.
 func (c *Comic) Image() (*Image, error) {
 	return getImageFromURL(c.Img)
 }
