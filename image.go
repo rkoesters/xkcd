@@ -7,6 +7,7 @@ import (
 	_ "image/png"
 	"io"
 	"net/http"
+	"path"
 )
 
 // Image represents an xkcd comic image.
@@ -57,9 +58,20 @@ func getImageFromURL(url string) (*Image, error) {
 
 // SourceURL is URL from which the comic image was retrieved. If image
 // wasn't retrieved from a URL (e.g. when it is created by calling
-// NewImage directly) a blank string will be returned.
+// NewImage directly), an empty string will be returned.
 func (img *Image) SourceURL() string {
 	return img.sourceURL
+}
+
+// SourceName is the original file name of the comic image. If the Image
+// wasn't retrieved from a URL (e.g. when it is created by calling
+// NewImage directly), an empty string will be returned.
+func (img *Image) SourceName() string {
+	url := img.SourceURL()
+	if url == "" {
+		return ""
+	}
+	return path.Base(url)
 }
 
 // SourceFormat is the file format that the image was decoded from.
