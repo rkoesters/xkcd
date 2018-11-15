@@ -2,8 +2,11 @@ package xkcd
 
 import (
 	"image"
+	// Some xkcd comics are in gif format.
 	_ "image/gif"
+	// Some xkcd comics are in jpeg format.
 	_ "image/jpeg"
+	// Some xkcd comics are in png format.
 	_ "image/png"
 	"io"
 	"net/http"
