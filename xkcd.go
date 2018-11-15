@@ -61,6 +61,8 @@ func GetCurrent() (*Comic, error) {
 	return getByURL(currentURL)
 }
 
+// ErrNotFound is returned when the xkcd server returns a 4xx response
+// code (like 404).
 var ErrNotFound = errors.New("Error retrieving comic")
 
 // getByURL returns information downloaded from `url'.
