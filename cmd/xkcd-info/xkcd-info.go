@@ -9,10 +9,14 @@ import (
 	"fmt"
 	"github.com/rkoesters/xkcd"
 	"log"
+	"net/http"
 	"os"
 )
 
-var number = flag.Int("n", 0, "Comic number.")
+var (
+	number = flag.Int("n", 0, "Comic number.")
+	useNew = flag.Bool("new", false, "Use xkcd.New instead of xkcd.Get.")
+)
 
 func main() {
 	flag.Parse()
@@ -26,9 +30,18 @@ func main() {
 	var err error
 
 	if *number == 0 {
-		comic, err = xkcd.GetCurrent()
+		if !*useNew {
+			comic, err = xkcd.GetCurrent()
+		} else {
+			comic, err = getComicWithNew("http://xkcd.com/info.0.json")
+		}
 	} else {
-		comic, err = xkcd.Get(*number)
+		if !*useNew {
+			comic, err = xkcd.Get(*number)
+		} else {
+			url := fmt.Sprintf("http://xkcd.com/%v/info.0.json", *number)
+			comic, err = getComicWithNew(url)
+		}
 	}
 
 	if err != nil {
@@ -36,6 +49,19 @@ func main() {
 	}
 
 	printInfo(comic)
+}
+
+func getComicWithNew(url string) (*xkcd.Comic, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		return nil, xkcd.ErrNotFound
+	}
+	return xkcd.New(resp.Body)
 }
 
 func printInfo(comic *xkcd.Comic) {
