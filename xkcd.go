@@ -36,15 +36,6 @@ func New(r io.Reader) (*Comic, error) {
 	return c, err
 }
 
-// newFixEncoding reads from an io.Reader and returns a *Comic struct.
-// This version of New properly handles ISO8859-1 encoded text, like
-// that delivered by xkcd.com.
-func newFixEncoding(r io.Reader) (*Comic, error) {
-	c, err := New(r)
-	fixComic(c)
-	return c, err
-}
-
 const (
 	currentURL  = "http://xkcd.com/info.0.json"
 	templateURL = "http://xkcd.com/%v/info.0.json"
@@ -76,7 +67,7 @@ func getByURL(url string) (*Comic, error) {
 	if resp.StatusCode >= 400 {
 		return nil, ErrNotFound
 	}
-	return newFixEncoding(resp.Body)
+	return New(resp.Body)
 }
 
 // Image retrieves the comic image from the xkcd server and returns it
