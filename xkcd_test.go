@@ -9,6 +9,43 @@ import (
 	"unicode/utf8"
 )
 
+func TestNew(t *testing.T) {
+	comic1, err := xkcd.GetCurrent()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	r, w := io.Pipe()
+
+	go func() {
+		e := json.NewEncoder(w)
+		err = e.Encode(comic1)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	comic2, err := xkcd.New(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log("comic1: ", comic1)
+	t.Log("comic2: ", comic2)
+
+	if !comicValidUtf8(comic1) {
+		t.Errorf("%+q isn't valid utf-8", comic1)
+	}
+
+	if !comicValidUtf8(comic2) {
+		t.Errorf("%+q isn't valid utf-8", comic2)
+	}
+
+	if !reflect.DeepEqual(comic1, comic2) {
+		t.Fatal("comic1 and comic2 don't match")
+	}
+}
+
 func TestGet(t *testing.T) {
 	comic, err := xkcd.Get(221)
 	if err != nil {
@@ -79,43 +116,6 @@ func Test404(t *testing.T) {
 	_, err := xkcd.Get(404)
 	if err != xkcd.ErrNotFound {
 		t.Fatal(err)
-	}
-}
-
-func TestNew(t *testing.T) {
-	comic1, err := xkcd.GetCurrent()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	r, w := io.Pipe()
-
-	go func() {
-		e := json.NewEncoder(w)
-		err = e.Encode(comic1)
-		if err != nil {
-			t.Fatal(err)
-		}
-	}()
-
-	comic2, err := xkcd.New(r)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	t.Log("comic1: ", comic1)
-	t.Log("comic2: ", comic2)
-
-	if !comicValidUtf8(comic1) {
-		t.Errorf("%+q isn't valid utf-8", comic1)
-	}
-
-	if !comicValidUtf8(comic2) {
-		t.Errorf("%+q isn't valid utf-8", comic2)
-	}
-
-	if !reflect.DeepEqual(comic1, comic2) {
-		t.Fatal("comic1 and comic2 don't match")
 	}
 }
 
