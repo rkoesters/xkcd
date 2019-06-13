@@ -154,17 +154,24 @@ func TestGet2038(t *testing.T) {
 func testGet(t *testing.T, expect *xkcd.Comic) {
 	actual, err := xkcd.Get(expect.Num)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
-	t.Logf("actual=%v", actual)
-	t.Logf("expect=%v", expect)
+	if actual == nil {
+		t.Fatal("actual == nil")
+	}
 
 	if !comicValidUtf8(actual) {
 		t.Errorf("%+q isn't valid utf-8", actual)
 	}
 
+	if !comicValidUtf8(expect) {
+		t.Errorf("%+q isn't valid utf-8", actual)
+	}
+
 	if !reflect.DeepEqual(actual, expect) {
+		t.Logf("actual=%v", actual)
+		t.Logf("expect=%v", expect)
 		t.Fail()
 	}
 }
