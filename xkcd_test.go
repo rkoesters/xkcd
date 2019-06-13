@@ -74,7 +74,7 @@ func TestGetCurrent(t *testing.T) {
 }
 
 func TestGet4(t *testing.T) {
-	expect := &xkcd.Comic{
+	testGet(t, &xkcd.Comic{
 		Num:       221,
 		Title:     "Random Number",
 		SafeTitle: "Random Number",
@@ -93,9 +93,7 @@ func TestGet4(t *testing.T) {
  guarenteed to be random.
 }
 {{title text: RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.}}`,
-	}
-
-	testGet(t, expect)
+	})
 }
 
 func TestGet404(t *testing.T) {
@@ -106,7 +104,7 @@ func TestGet404(t *testing.T) {
 }
 
 func TestGet1953(t *testing.T) {
-	expect := &xkcd.Comic{
+	testGet(t, &xkcd.Comic{
 		Num:        1953,
 		Title:      "The History of Unicode",
 		SafeTitle:  "The History of Unicode",
@@ -118,13 +116,11 @@ func TestGet1953(t *testing.T) {
 		News:       "",
 		Link:       "",
 		Transcript: "",
-	}
-
-	testGet(t, expect)
+	})
 }
 
 func TestGet1956(t *testing.T) {
-	expect := &xkcd.Comic{
+	testGet(t, &xkcd.Comic{
 		Num:        1956,
 		Title:      "Unification",
 		SafeTitle:  "Unification",
@@ -136,13 +132,11 @@ func TestGet1956(t *testing.T) {
 		News:       "",
 		Link:       "",
 		Transcript: "",
-	}
-
-	testGet(t, expect)
+	})
 }
 
 func TestGet2038(t *testing.T) {
-	expect := &xkcd.Comic{
+	testGet(t, &xkcd.Comic{
 		Num:        2038,
 		Title:      "Hazard Symbol",
 		SafeTitle:  "Hazard Symbol",
@@ -154,9 +148,7 @@ func TestGet2038(t *testing.T) {
 		News:       "",
 		Link:       "",
 		Transcript: "",
-	}
-
-	testGet(t, expect)
+	})
 }
 
 func testGet(t *testing.T, expect *xkcd.Comic) {
