@@ -46,45 +46,6 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestGet(t *testing.T) {
-	comic, err := xkcd.Get(221)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	expected := &xkcd.Comic{
-		Num:       221,
-		Title:     "Random Number",
-		SafeTitle: "Random Number",
-		Img:       "https://imgs.xkcd.com/comics/random_number.png",
-		Alt:       "RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.",
-		Year:      "2007",
-		Month:     "2",
-		Day:       "9",
-		News:      "",
-		Link:      "",
-		Transcript: `int getRandomNumber()
-{
-  return 4; 
- chosen by fair dice roll.
-               
- guarenteed to be random.
-}
-{{title text: RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.}}`,
-	}
-
-	t.Log("comic: ", comic)
-	t.Log("expected: ", expected)
-
-	if !comicValidUtf8(comic) {
-		t.Errorf("%+q isn't valid utf-8", comic)
-	}
-
-	if !reflect.DeepEqual(comic, expected) {
-		t.Fail()
-	}
-}
-
 func TestGetCurrent(t *testing.T) {
 	comic1, err := xkcd.GetCurrent()
 	if err != nil {
@@ -112,14 +73,39 @@ func TestGetCurrent(t *testing.T) {
 	}
 }
 
-func Test404(t *testing.T) {
+func TestGet4(t *testing.T) {
+	expect := &xkcd.Comic{
+		Num:       221,
+		Title:     "Random Number",
+		SafeTitle: "Random Number",
+		Img:       "https://imgs.xkcd.com/comics/random_number.png",
+		Alt:       "RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.",
+		Year:      "2007",
+		Month:     "2",
+		Day:       "9",
+		News:      "",
+		Link:      "",
+		Transcript: `int getRandomNumber()
+{
+  return 4; 
+ chosen by fair dice roll.
+               
+ guarenteed to be random.
+}
+{{title text: RFC 1149.5 specifies 4 as the standard IEEE-vetted random number.}}`,
+	}
+
+	testGet(t, expect)
+}
+
+func TestGet404(t *testing.T) {
 	_, err := xkcd.Get(404)
 	if err != xkcd.ErrNotFound {
 		t.Fatal(err)
 	}
 }
 
-func Test1953(t *testing.T) {
+func TestGet1953(t *testing.T) {
 	expect := &xkcd.Comic{
 		Num:        1953,
 		Title:      "The History of Unicode",
@@ -134,24 +120,10 @@ func Test1953(t *testing.T) {
 		Transcript: "",
 	}
 
-	actual, err := xkcd.Get(expect.Num)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	t.Logf("actual=%v", actual)
-	t.Logf("expect=%v", expect)
-
-	if !comicValidUtf8(actual) {
-		t.Errorf("%+q isn't valid utf-8", actual)
-	}
-
-	if !reflect.DeepEqual(actual, expect) {
-		t.Fail()
-	}
+	testGet(t, expect)
 }
 
-func Test1956(t *testing.T) {
+func TestGet1956(t *testing.T) {
 	expect := &xkcd.Comic{
 		Num:        1956,
 		Title:      "Unification",
@@ -166,24 +138,10 @@ func Test1956(t *testing.T) {
 		Transcript: "",
 	}
 
-	actual, err := xkcd.Get(expect.Num)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	t.Logf("actual=%v", actual)
-	t.Logf("expect=%v", expect)
-
-	if !comicValidUtf8(actual) {
-		t.Errorf("%+q isn't valid utf-8", actual)
-	}
-
-	if !reflect.DeepEqual(actual, expect) {
-		t.Fail()
-	}
+	testGet(t, expect)
 }
 
-func Test2038(t *testing.T) {
+func TestGet2038(t *testing.T) {
 	expect := &xkcd.Comic{
 		Num:        2038,
 		Title:      "Hazard Symbol",
@@ -198,6 +156,10 @@ func Test2038(t *testing.T) {
 		Transcript: "",
 	}
 
+	testGet(t, expect)
+}
+
+func testGet(t *testing.T, expect *xkcd.Comic) {
 	actual, err := xkcd.Get(expect.Num)
 	if err != nil {
 		t.Fatal(err)
