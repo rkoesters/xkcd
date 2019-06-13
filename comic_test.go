@@ -12,7 +12,11 @@ import (
 func TestNew(t *testing.T) {
 	comic1, err := xkcd.GetCurrent()
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
+	}
+
+	if comic1 == nil {
+		t.Fatal("comic1 == nil")
 	}
 
 	r, w := io.Pipe()
@@ -27,11 +31,12 @@ func TestNew(t *testing.T) {
 
 	comic2, err := xkcd.New(r)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
-	t.Log("comic1: ", comic1)
-	t.Log("comic2: ", comic2)
+	if comic2 == nil {
+		t.Fatal("comic2 == nil")
+	}
 
 	if !comicValidUtf8(comic1) {
 		t.Errorf("%+q isn't valid utf-8", comic1)
@@ -42,7 +47,9 @@ func TestNew(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(comic1, comic2) {
-		t.Fatal("comic1 and comic2 don't match")
+		t.Logf("comic1=%v", comic1)
+		t.Logf("comic2=%v", comic2)
+		t.Fatal("comic1 != comic2")
 	}
 }
 
