@@ -37,8 +37,8 @@ func New(r io.Reader) (*Comic, error) {
 }
 
 const (
-	currentURL  = "http://xkcd.com/info.0.json"
-	templateURL = "http://xkcd.com/%v/info.0.json"
+	currentURL  = "https://xkcd.com/info.0.json"
+	templateURL = "https://xkcd.com/%v/info.0.json"
 )
 
 // Get fetches information about the xkcd comic number `n'.
