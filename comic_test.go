@@ -47,30 +47,12 @@ func TestNew(t *testing.T) {
 }
 
 func TestGetCurrent(t *testing.T) {
-	comic1, err := xkcd.GetCurrent()
+	current, err := xkcd.GetCurrent()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	comic2, err := xkcd.Get(comic1.Num)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	t.Log("comic1: ", comic1)
-	t.Log("comic2: ", comic2)
-
-	if !comicValidUtf8(comic1) {
-		t.Errorf("%+q isn't valid utf-8", comic1)
-	}
-
-	if !comicValidUtf8(comic2) {
-		t.Errorf("%+q isn't valid utf-8", comic2)
-	}
-
-	if !reflect.DeepEqual(comic1, comic2) {
-		t.Fatal("comic1 and comic2 don't match")
-	}
+	testGet(t, current)
 }
 
 func TestGet4(t *testing.T) {
