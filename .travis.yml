@@ -6,6 +6,12 @@ go:
   - "1.10.x" # ubuntu 18.04
   - "1.x"    # latest release
 
+addons:
+  apt:
+    packages:
+      - golint
+
 script:
   - go vet ./...
+  - golint ./...
   - go test -v -cover ./...
