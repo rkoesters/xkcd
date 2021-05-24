@@ -21,17 +21,19 @@ func TestNew(t *testing.T) {
 
 	r, w := io.Pipe()
 
+	errs := make(chan error, 1)
 	go func() {
 		e := json.NewEncoder(w)
 		err = e.Encode(comic1)
-		if err != nil {
-			t.Fatal(err)
-		}
+		errs <- err
 	}()
 
 	comic2, err := xkcd.New(r)
 	if err != nil {
 		t.Error(err)
+	}
+	if err = <-errs; err != nil {
+		t.Fatal(err)
 	}
 
 	if comic2 == nil {
