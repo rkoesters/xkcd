@@ -1,0 +1,30 @@
+---
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go:
+          - 1.11.x  # debian buster
+          - 1.13.x  # ubuntu focal
+          - 1.x     # latest
+
+    name: Go ${{ matrix.go }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+
+      - run: go build -v github.com/rkoesters/xkcd/...
+      - run: go test -v -cover github.com/rkoesters/xkcd/...
+      - run: go vet -v github.com/rkoesters/xkcd/...
