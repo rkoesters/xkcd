@@ -1,6 +1,7 @@
 // xkcd-info prints information about an xkcd comic.
 //
 // Usage:
+//
 //	xkcd-info [-n number]
 package main
 

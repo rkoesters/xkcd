@@ -1,6 +1,7 @@
 // xkcd-image downloads an xkcd comic image to the current directory.
 //
 // Usage:
+//
 //	xkcd-image [-n number] [-d output-directory]
 package main
 
