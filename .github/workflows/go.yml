@@ -11,7 +11,7 @@ name: CI
     branches:
       - main
   schedule:
-    - cron: 50 3 1 * *
+    - cron: 0 0 * * 6
 
 jobs:
   build:
