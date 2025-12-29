@@ -16,6 +16,7 @@ name: CI
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         go:
           - 1.13.x  # ubuntu focal
@@ -28,6 +29,13 @@ jobs:
         runs-on:
           - ubuntu-latest
           - ubuntu-24.04-arm
+          - windows-latest
+          - macos-latest
+        exclude:
+          - go: 1.13.x
+            runs-on: macos-latest
+          - go: 1.15.x
+            runs-on: macos-latest
 
     name: Go ${{ matrix.go }} on ${{ matrix.runs-on }}
 
