@@ -22,6 +22,7 @@ jobs:
           - 1.15.x  # debian bullseye
           - 1.18.x  # ubuntu jammy
           - 1.19.x  # debian bookworm
+          - 1.24.x  # debian trixie
           - 1.x     # latest
         runs-on:
           - ubuntu-latest
