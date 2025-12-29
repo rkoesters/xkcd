@@ -47,7 +47,6 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
-          cache: true
 
       - run: go build -v github.com/rkoesters/xkcd/...
       - run: go test -v -cover github.com/rkoesters/xkcd/...
