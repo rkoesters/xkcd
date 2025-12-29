@@ -31,20 +31,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - if: ${{ matrix.go != '1.13.x' }}
-        uses: actions/setup-go@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
           cache: true
-
-      # Workaround for https://github.com/actions/setup-go/issues/304.
-      # TODO: Remove workaround after next release of setup-go
-      - if: ${{ matrix.go == '1.13.x' }}
-        name: Run actions/setup-go@v6 (cache disabled)
-        uses: actions/setup-go@v6
-        with:
-          go-version: ${{ matrix.go }}
-          cache: false
 
       - run: go build -v github.com/rkoesters/xkcd/...
       - run: go test -v -cover github.com/rkoesters/xkcd/...
