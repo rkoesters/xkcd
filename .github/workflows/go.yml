@@ -16,6 +16,7 @@ name: CI
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         go:
           - 1.13.x  # ubuntu focal
