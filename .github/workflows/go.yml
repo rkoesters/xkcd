@@ -2,7 +2,13 @@
 
 name: CI
 
-on: [push, pull_request]
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -14,28 +20,21 @@ jobs:
           - 1.18.x  # ubuntu jammy
           - 1.19.x  # debian bookworm
           - 1.x     # latest
+        runs-on:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
 
-    name: Go ${{ matrix.go }}
+    name: Go ${{ matrix.go }} on ${{ matrix.runs-on }}
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
 
     steps:
       - uses: actions/checkout@v6
 
-      - if: ${{ matrix.go != '1.13.x' }}
-        uses: actions/setup-go@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
           cache: true
-
-      # Workaround for https://github.com/actions/setup-go/issues/304.
-      # TODO: Remove workaround after next release of setup-go
-      - if: ${{ matrix.go == '1.13.x' }}
-        name: Run actions/setup-go@v6 (cache disabled)
-        uses: actions/setup-go@v6
-        with:
-          go-version: ${{ matrix.go }}
-          cache: false
 
       - run: go build -v github.com/rkoesters/xkcd/...
       - run: go test -v -cover github.com/rkoesters/xkcd/...
