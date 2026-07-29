@@ -37,6 +37,12 @@ jobs:
             runs-on: macos-latest
           - go: 1.15.x
             runs-on: macos-latest
+          - go: 1.18.x
+            runs-on: macos-latest
+          - go: 1.19.x
+            runs-on: macos-latest
+          - go: 1.22.x
+            runs-on: macos-latest
 
     name: Go ${{ matrix.go }} on ${{ matrix.runs-on }}
 
